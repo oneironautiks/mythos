@@ -33,10 +33,6 @@
 ## Project Description
 mythos is a website dedicated first & foremost to collecting recorded instances of pan-cultural myths & legends from around the world in one centralized place, and secondly to the birth of new, modern stories from and for our modern world. Users will be able to browse through and read the world's folklore, edit mistakes/fill in missing gaps & upload missing myths, as well as contribute their own personal tales.
 
-#### Project Inspiration
-
-#### Project Permissions
-
 <br>
 
 # Design
@@ -111,6 +107,20 @@ mythos is a website dedicated first & foremost to collecting recorded instances 
 <br>
 
 ## Supporting Libraries
+* Backend
+  * Ruby-on-Rails
+  * Cors
+  * Bcrypt 
+  * JWT
+  * Better-Errors
+  * Binding-of-Caller
+
+* Frontend
+  * React
+  * Axios
+  * React-router-dom
+  * React-Redux
+  * React Hooks
 
 <br>
 <br>
