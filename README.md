@@ -1,8 +1,8 @@
-# MYTHOS
+# mythos
 
 ## Table of Contents
-- [Project Description](#project-description)
-  - [Project Team](#project-team)
+- [Overview](#overview)
+  - [Project Description](#project-description)
   - [Project Inspiration](#project-inspiration)
   - [Project Permissions](#project-permissions)
 - [Design](#design)
@@ -10,7 +10,6 @@
   - [Wireframes](#wireframes)
     - [Desktop](#desktop)
     - [Mobile](#mobile)
-  - [Branding](#branding)
 - [Development](#development)
   - [Functional Goals](#functional-goals)
     - [MVP](#mvp)
@@ -28,3 +27,79 @@
   - [Code Showcase](#code-showcase)
   - [Bugs, Issues, and Resolutions](#issues-&-resolutions)
 - [Project Followup](#project-followup)
+
+<br>
+<br>
+
+# Overview
+
+## Project Description
+
+#### Project Inspiration
+
+#### Project Permissions
+
+<br>
+<br>
+
+# Design
+
+## ERD Model
+
+## Sitemap
+
+## Wireframes
+
+#### Desktop
+
+#### Mobile
+
+<br>
+
+# Development
+
+## Functional Goals 
+
+### MVP
+
+### Post-MVP
+
+<br> 
+
+## Functional Hierarchy
+
+#### Repo Structure
+
+#### Ruby-on-Rails Database Structure
+
+#### React Structure
+
+<br> 
+
+## Functional Components
+
+#### Component Breakdown
+
+#### Component Timeframes
+
+#### Helper Functions
+
+<br>
+
+## Supporting Libraries
+
+<br>
+<br>
+
+# Project Review
+
+## Code Showcase
+
+<br>
+
+## Conflicts & Resolutions
+
+<br>
+<br>
+
+# Project Followup
