@@ -3,10 +3,7 @@
 ## Table of Contents
 - [Overview](#overview)
   - [Project Description](#project-description)
-  - [Project Inspiration](#project-inspiration)
-  - [Project Permissions](#project-permissions)
 - [Design](#design)
-  - [Sitemap](#sitemap)
   - [Wireframes](#wireframes)
     - [Desktop](#desktop)
     - [Mobile](#mobile)
@@ -62,8 +59,34 @@ mythos is a website dedicated first & foremost to collecting recorded instances 
 ## Functional Goals 
 
 ### MVP
+- User authentication & password hashing
+- Ruby-on-Rails backend with models for stories, as well as users & comments
+  - Users (username, email, password, fav_story)
+    - User has_many stories, User has_many comments
+  - Stories (title, summary, place_of_origin, date_of_origin, story)
+    - Story has_many comments
+  - Comments (title, comment, date_posted)
+    - Comments belongs_to Users, Comments belongs_to Stories
+- CRUD functionality
+- Core React Components
+  - Pages
+    - Landing (Overview, Login, Register)
+    - Homepage (_Index_)(View All Story Summaries)
+    - User (_Show_)
+    - Story (_Show_)
+  - Modules
+    - Login Form
+    - Register Form
+    - Upload-a-story Form
 
 ### Post-MVP
+- Users can have thumbnail avatars
+- Upvote/downvote functionality for stories & comments
+- Additional user stats
+- Insight into the origins of stories, where applicable/available
+- Become-a-mod/admin feature
+- Stories sorted by origin info/plot content
+  - Search feature 
 
 <br> 
 
