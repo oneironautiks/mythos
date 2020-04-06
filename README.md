@@ -45,7 +45,7 @@ mythos is a website dedicated first & foremost to collecting recorded instances 
 # Design
 
 ## ERD Model
-![ERD Model](https://imgur.com/0PihVkP)
+![ERD Model](https://imgur.com/0PihVkP.png)
 
 ## Sitemap
 
