@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
-  # SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
-  SECRET_
+  SECRET_KEY = Rails.env == 'production' ? ENV['SECRET_KEY']
+  : Rails.application.secrets.secret_key_base.to_s
 
   def encode(payload, exp = 2.weeks.from_now)
     payload[:exp] = exp.to_i
