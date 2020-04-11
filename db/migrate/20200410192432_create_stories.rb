@@ -6,7 +6,7 @@ class CreateStories < ActiveRecord::Migration[6.0]
       t.string :place_of_origin
       t.string :date_of_origin
       t.text :story
-      t.references :comments
+      t.references :user
 
       t.timestamps
     end
