@@ -12,7 +12,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create story" do
     assert_difference('Story.count') do
-      post stories_url, params: { story: { date_of_origin: @story.date_of_origin, place_of_origin: @story.place_of_origin, story: @story.story, summary: @story.summary, title: @story.title } }, as: :json
+      post stories_url, params: { story: { date_of_origin: @story.date_of_origin, place_of_origin: @story.place_of_origin, references: @story.references, story: @story.story, summary: @story.summary, title: @story.title } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update story" do
-    patch story_url(@story), params: { story: { date_of_origin: @story.date_of_origin, place_of_origin: @story.place_of_origin, story: @story.story, summary: @story.summary, title: @story.title } }, as: :json
+    patch story_url(@story), params: { story: { date_of_origin: @story.date_of_origin, place_of_origin: @story.place_of_origin, references: @story.references, story: @story.story, summary: @story.summary, title: @story.title } }, as: :json
     assert_response 200
   end
 

@@ -5,8 +5,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :password_digest
       t.string :fav_story
-      t.references :story, null: false, foreign_key: true
-      t.references :comment, null: false, foreign_key: true
+      t.references :stories
+      t.references :comments
 
       t.timestamps
     end

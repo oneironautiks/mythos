@@ -5,13 +5,13 @@ one:
   email: MyString
   password_digest: MyString
   fav_story: MyString
-  stories: one
-  comments: one
+  references: 
+  references: 
 
 two:
   username: MyString
   email: MyString
   password_digest: MyString
   fav_story: MyString
-  stories: two
-  comments: two
+  references: 
+  references: 
