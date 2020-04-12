@@ -12,4 +12,7 @@ Story.create!({
   place_of_origin: 'here',
   date_of_origin: '2020',
   story: 'GAJGSAJHDBAKHBS',
+  user_id: 1
 })
+
+p "#{Story.count} stories were created!"
