@@ -8,6 +8,7 @@ import CreateStory from './screens/CreateStory';
 import Layout from './shared/Layout';
 import Stories from './screens/Stories';
 // import Story from './screens/Story';
+import Routes from '../routes/Routes';
 
 import {
   loginUser,
@@ -33,7 +34,15 @@ class Container extends Component {
       user: null,
       stories: [],
       comments: [],
-      oneStory: null,
+      oneStory: {
+        title: '',
+        summary: '',
+        origin: {
+          place: '',
+          time: ''
+        },
+        story: ''
+      },
       formData: {
         name: ""
       },
@@ -236,8 +245,30 @@ class Container extends Component {
           user={this.state.user}
           handleLogout={this.handleLogout}
           handleLoginButton={this.handleLoginButton}
+        />
+        <Routes 
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          authFormData={this.state.authFormData}
+          formData={this.state.formData}
+          handleRegister={this.handleRegister}
+          handleLogin={this.handleLogin}
+          authHandleChange={this.authHandleChange}
+          stories={this.state.stories}
+          getOneStory={this.getOneStory}
+          deleteStory={this.deleteStory}
+          updateStory={this.updateStory}
+          addStory={this.addStory}
+          setStoryForm={this.setStoryForm}
+          getStories={this.getStories}
+          comments={this.state.comments}
+          addCommentToStory={this.addCommentToStory}
+          story={this.state.oneStory}
+          setCommentForm={this.setCommentForm}
+          updateComment={this.updateComment}
+          deleteComment={this.deleteComment}
           />
-        <Route
+        {/* <Route
           exact path="/login" 
           render={(props) => (
             <Login
@@ -283,7 +314,7 @@ class Container extends Component {
               setStoryForm={this.state.setStoryForm}
             />
           )}
-          />
+          /> */}
         {/* <Route
           exact path="/stories/:id"
           render={(props) => (

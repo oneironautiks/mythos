@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import StoryForm from '../shared/StoryForm';
+
 
 class CreateStory extends Component {
   constructor(props) {
