@@ -4,7 +4,10 @@ import { withRouter } from 'react-router';
 import Register from './screens/Register';
 import Login from './screens/Login';
 import CreateStory from './screens/CreateStory';
-import Header from './shared/Header';
+// import Header from './shared/Header';
+import Layout from './shared/Layout';
+import Stories from './screens/Stories';
+// import Story from './screens/Story';
 
 import {
   loginUser,
@@ -20,7 +23,7 @@ import {
   destroyComment,
   removeToken,
   verifyUser
-} from './services/api-helper';
+} from '../services/api-helper';
 
 class Container extends Component {
   constructor(props) {
@@ -169,6 +172,7 @@ class Container extends Component {
 
   handleRegister = async (e) => {
     e.preventDefault();
+    console.log(this.state.authFormData);
     const user = await registerUser(this.state.authFormData);
     this.setState({
       user
@@ -203,6 +207,7 @@ class Container extends Component {
   }
 
   render() {
+    console.log(this.state.user)
     return (
       <div>
         {/* <header>
@@ -222,10 +227,15 @@ class Container extends Component {
               <button onClick={this.handleLoginButton}>Login/Register</button>
           }
         </header> */}
-        <Header
+        {/* <Header
           user={this.state.user}
           handleLogout={this.handleLogout}
-          handleLoginButton={this.state.handleLoginButton}
+          handleLoginButton={this.handleLoginButton}
+          /> */}
+        <Layout
+          user={this.state.user}
+          handleLogout={this.handleLogout}
+          handleLoginButton={this.handleLoginButton}
           />
         <Route
           exact path="/login" 
@@ -274,7 +284,7 @@ class Container extends Component {
             />
           )}
           />
-        <Route
+        {/* <Route
           exact path="/stories/:id"
           render={(props) => (
             <Story
@@ -284,8 +294,8 @@ class Container extends Component {
               addCommentToStory={this.addCommentToStory}
             />
           )}
-          />
-        <Route
+          /> */}
+        {/* <Route
           exact path="/stories/:id/comments"
           render={(props) => (
             <Comments 
@@ -298,8 +308,10 @@ class Container extends Component {
               setCommentForm={this.setCommentForm}
             />
           )}
-          />
+          /> */}
       </div>
     )
   }
 }
+
+export default Container;

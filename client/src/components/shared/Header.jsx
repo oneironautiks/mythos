@@ -12,9 +12,10 @@ const Header = props => (
       </NavLink>
       {
         props.user 
-          ?
+          ? 
+          (
           <>
-            <h3>
+            <h3 className="navbar-welcome">
               Welcome, {props.user && props.user.username}
               <button onClick={props.handleLogout}>Logout</button>
             </h3>
@@ -24,11 +25,13 @@ const Header = props => (
           {/* <NavLink to="/sign-out">
             Sign Out
           </NavLink> */}
-          <NavLink to={`/${user.id}/fav-stories`}>
+          <NavLink to={`/${props.user.id}/fav-stories`}>
               Your Favorite Stories
           </NavLink>
             </>
+          )
           :
+          (
           <>
            <NavLink to="/login">
             Login
@@ -37,6 +40,7 @@ const Header = props => (
               Register
           </NavLink>
             </>
+          )
          
       }
     </nav>

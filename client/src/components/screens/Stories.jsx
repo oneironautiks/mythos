@@ -34,6 +34,12 @@ class Stories extends Component {
                         onChange={this.props.handleChange}
                       />
                       <button>Submit</button>
+                      <button
+                        className="danger"
+                        onClick={() => this.props.history.push(this.props.cancelPath)}
+                      >
+                        Cancel
+                      </button>
                     </form>
                   </div>
                   :
@@ -52,7 +58,15 @@ class Stories extends Component {
                     }}>
                       Edit Story
                     </button>
-                    <button onClick={() => {
+                      <button
+                        className="danger"
+                        onClick={() => this.props.history.push(this.props.cancelPath)}
+                      >
+                        Cancel
+                      </button>
+                    <button
+                      className="danger"
+                      onClick={() => {
                       this.props.deleteStory(story)
                     }}>
                       Delete
