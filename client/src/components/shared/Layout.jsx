@@ -10,7 +10,7 @@ const Layout = props => (
           handleLogout={props.handleLogout}
           handleLoginButton={props.handleLoginButton}
             />
-      <div className="content">
+      {/* <div className="content">
         <nav>
           <NavLink
             className="mythosphere"
@@ -24,11 +24,11 @@ const Layout = props => (
           >
             Offer Tribute to *the* MYTHOSPHERE
             </NavLink>
-        </nav>
-      <main>
+        </nav> */}
+      <div>
         {props.children}
-      </main>
-    </div>
+      </div>
+    {/* </div> */}
     <Footer />
   </div>
 )

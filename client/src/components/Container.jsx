@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import Register from './screens/Register';
-import Login from './screens/Login';
-import CreateStory from './screens/CreateStory';
+// import { Route, Link } from 'react-router-dom';
+// import { withRouter } from 'react-router';
+// import Register from './screens/Register';
+// import Login from './screens/Login';
+// import CreateStory from './screens/CreateStory';
 // import Header from './shared/Header';
 import Layout from './shared/Layout';
-import Stories from './screens/Stories';
+// import Stories from './screens/Stories';
 // import Story from './screens/Story';
 import Routes from '../routes/Routes';
 
@@ -14,16 +14,14 @@ import {
   loginUser,
   registerUser,
   showStories,
-  showStoryComments,
   showOneStory,
   postStory,
-  postStoryComment,
   updateStory,
   destroyStory,
-  updateStoryComment,
-  destroyComment,
   removeToken,
-  verifyUser
+  verifyUser,
+  addToFavorites,
+  showUser
 } from '../services/api-helper';
 
 class Container extends Component {
@@ -34,15 +32,14 @@ class Container extends Component {
       user: null,
       stories: [],
       comments: [],
-      oneStory: {
+      story: {
         title: '',
         summary: '',
-        origin: {
-          place: '',
-          time: ''
-        },
-        story: ''
+        place_of_origin: '',
+       date_of_origin: '',
+        story: '',
       },
+      oneStory: null,
       formData: {
         name: ""
       },
@@ -51,14 +48,16 @@ class Container extends Component {
         username: "",
         email: "",
         password: ""
-      }
+      },
+      viewUser: null,
+      favorites: []
     }
   }
 
 
   componentDidMount = () => {
     this.getStories();
-    this.getStoryComments();
+    // this.getStoryComments();
     this.handleVerify();
   }
 
@@ -76,14 +75,30 @@ class Container extends Component {
     });
   }
 
-  addStory = async () => {
-    const newStory = await postStory(this.state.formData);
+  addStory = async (e) => {
+    e.preventDefault();
+    console.log(this.state.story)
+    const newStory = await postStory({ ...this.state.story, user_id: this.state.user.id });
     this.setState(state => ({
-      stories: [...state.stories, newStory],
-      formData: {
-        name: ""
-      }
+      stories: [...state.stories, newStory]
     }));
+  }
+
+  addStoryToFavorites = async (id) => {
+    const { favorites } = this.state;
+    const favorite = await addToFavorites({ user_id: this.state.user.id, story_id: id });
+    favorites.push(favorite);
+    this.setState({
+      favorites
+    });
+  }
+
+  getUser = async (id) => {
+    const viewUser = await showUser(id);
+    this.setState({
+      viewUser
+    })
+    return viewUser;
   }
 
   updateStory = async (story) => {
@@ -123,46 +138,46 @@ class Container extends Component {
     });
   }
 
-  getStoryComments = async (story) => {
-    const comments = await showStoryComments(story);
-    this.setState({
-      comments
-    })
-  }
+  // getStoryComments = async (story) => {
+  //   const comments = await showStoryComments(story);
+  //   this.setState({
+  //     comments
+  //   })
+  // }
 
-  addCommentToStory = async (story, comment) => {
-    const newComment = await postStoryComment(story, comment);
-    this.setState(state => ({
-      comments: [...state.comments, newComment],
-      formData: {
-        name: ""
-      }
-    }));
-  }
+  // addCommentToStory = async (story, comment) => {
+  //   const newComment = await postStoryComment(story, comment);
+  //   this.setState(state => ({
+  //     comments: [...state.comments, newComment],
+  //     formData: {
+  //       name: ""
+  //     }
+  //   }));
+  // }
 
-  updateComment = async (story, comment) => {
-    const updatedComment = await updateStoryComment(this.state.formData, story, comment);
-    this.setState(state => ({
-      comments: state.comments.map(oneComment => {
-        return oneComment.id === comment.id ? updatedComment : oneComment;
-      })
-    }));
-  }
+  // updateComment = async (story, comment) => {
+  //   const updatedComment = await updateStoryComment(this.state.formData, story, comment);
+  //   this.setState(state => ({
+  //     comments: state.comments.map(oneComment => {
+  //       return oneComment.id === comment.id ? updatedComment : oneComment;
+  //     })
+  //   }));
+  // }
 
-  deleteComment = async (comment) => {
-    await destroyComment(comment.id);
-    this.setState(state => ({
-      comments: state.comments.filter(oneComment => oneComment.id !== comment.id)
-    }));
-  }
+  // deleteComment = async (comment) => {
+  //   await destroyComment(comment.id);
+  //   this.setState(state => ({
+  //     comments: state.comments.filter(oneComment => oneComment.id !== comment.id)
+  //   }));
+  // }
 
-  setCommentForm = (comment) => {
-    this.setState({
-      formData: {
-        name: comment.name
-      }
-    });
-  }
+  // setCommentForm = (comment) => {
+  //   this.setState({
+  //     formData: {
+  //       name: comment.name
+  //     }
+  //   });
+  // }
 
 //   commentForm = (e) => {
 //     this.handleChange(e);
@@ -215,37 +230,26 @@ class Container extends Component {
     }));
   }
 
+  storyHandleChange = (e) => {
+    // e.preventDefault();
+    const { name, value } = e.target;
+    this.setState(state => ({
+      story: {
+        ...state.story,
+        [name]: value
+      }
+    }))
+      console.log(this.state.story);
+  }
+
   render() {
-    console.log(this.state.user)
     return (
       <div>
-        {/* <header>
-          <Link to="/"><h1>mythos</h1></Link>
-          {
-            this.state.user 
-              ?
-              <div>
-                <h3>
-                  Welcome, {this.state.user && this.state.user.username}
-                  <button onClick={this.handleChange}>logout</button>
-                </h3>
-                <Link to="/stories">View All Stories</Link>
-                <hr />
-              </div>
-              : 
-              <button onClick={this.handleLoginButton}>Login/Register</button>
-          }
-        </header> */}
-        {/* <Header
-          user={this.state.user}
-          handleLogout={this.handleLogout}
-          handleLoginButton={this.handleLoginButton}
-          /> */}
         <Layout
           user={this.state.user}
           handleLogout={this.handleLogout}
           handleLoginButton={this.handleLoginButton}
-        />
+        >
         <Routes 
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
@@ -262,84 +266,15 @@ class Container extends Component {
           setStoryForm={this.setStoryForm}
           getStories={this.getStories}
           comments={this.state.comments}
-          addCommentToStory={this.addCommentToStory}
-          story={this.state.oneStory}
-          setCommentForm={this.setCommentForm}
-          updateComment={this.updateComment}
-          deleteComment={this.deleteComment}
+          story={this.state.story}
+          oneStory={this.state.oneStory}
+          storyHandleChange={this.storyHandleChange}
+          addToFavorites={this.addStoryToFavorites}
+          getUser={this.getUser}
+          user={this.state.user}
+          // favorites={this.state.favorites}
           />
-        {/* <Route
-          exact path="/login" 
-          render={(props) => (
-            <Login
-              handleLogin={this.handleLogin}
-              handleChange={this.authHandleChange}
-              formData={this.state.authFormData}
-            />
-          )} 
-        />
-        <Route 
-          exact path="/register"
-          render={(props) => (
-          <Register 
-            handleRegister={this.handleRegister}
-            handleChange={this.authHandleChange}
-            formData={this.state.authFormData}
-            />
-          )}
-        />
-        <Route 
-          exact path="/stories"
-          render={(props) => (
-            <Stories 
-              stories={this.state.stories}
-              formData={this.state.formData}
-              getOneStory={this.getOneStory}
-              deleteStory={this.deleteStory}
-              updateStory={this.updateStory}
-              handleSubmit={this.addStory}
-              handleChange={this.handleChange}
-              setStoryForm={this.setStoryForm}
-              getStories={this.getStories}
-            />
-          )}
-        />
-        <Route 
-          exact path="/stories"
-          render={(props) => (
-            <CreateStory 
-              formData={this.state.formData}
-              handleSubmit={this.state.handleSubmit}
-              handleChange={this.state.handleChange}
-              setStoryForm={this.state.setStoryForm}
-            />
-          )}
-          /> */}
-        {/* <Route
-          exact path="/stories/:id"
-          render={(props) => (
-            <Story
-              story={this.state.oneStory}
-              comments={this.state.comments}
-              handleChange={this.commentForm}
-              addCommentToStory={this.addCommentToStory}
-            />
-          )}
-          /> */}
-        {/* <Route
-          exact path="/stories/:id/comments"
-          render={(props) => (
-            <Comments 
-              comments={this.state.comments}
-              updateComment={this.updateComment}
-              deleteComment={this.deleteComment}
-              handleSubmit={this.handleSubmit}
-              handleChange={this.handleChange}
-              formData={this.formData}
-              setCommentForm={this.setCommentForm}
-            />
-          )}
-          /> */}
+       </Layout>
       </div>
     )
   }

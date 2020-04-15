@@ -10,9 +10,15 @@ const Login = props => (
       props.handleLogin();
     }}>
       <input
-        name="email" 
+        name="username" 
         type="text"
-        value={props.formData.email}
+        value={props.formData.username}
+        onChange={props.handleChange}
+      />
+      <input
+        name="password" 
+        type="text"
+        value={props.formData.password}
         onChange={props.handleChange}
       />
       <button>Login</button>

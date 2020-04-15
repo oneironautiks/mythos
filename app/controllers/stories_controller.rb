@@ -1,4 +1,5 @@
 class StoriesController < ApplicationController
+  before_action :authorize_request, only: :create
   before_action :set_story, only: [:show, :update, :destroy]
 
   # GET /stories
@@ -15,10 +16,11 @@ class StoriesController < ApplicationController
 
   # POST /stories
   def create
+    p "#{@current_user.stories} yes this one"
     @story = Story.new(story_params)
 
     if @story.save
-      render json: @story, status: :created, location: @story
+      render json: @story, status: :created
     else
       render json: @story.errors, status: :unprocessable_entity
     end
@@ -46,6 +48,6 @@ class StoriesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def story_params
-      params.require(:story).permit(:title, :summary, :place_of_origin, :date_of_origin, :story, :references)
+      params.require(:story).permit(:title, :summary, :place_of_origin, :date_of_origin, :story, :user_id)
     end
 end

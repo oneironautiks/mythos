@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_195038) do
+ActiveRecord::Schema.define(version: 2020_04_15_015450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 2020_04_14_195038) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["story_id"], name: "index_comments_on_story_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "story_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["story_id"], name: "index_favorites_on_story_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "stories", force: :cascade do |t|
@@ -44,4 +53,6 @@ ActiveRecord::Schema.define(version: 2020_04_14_195038) do
     t.string "password_digest"
   end
 
+  add_foreign_key "favorites", "stories"
+  add_foreign_key "favorites", "users"
 end

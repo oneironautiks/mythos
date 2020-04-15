@@ -38,6 +38,10 @@ export const removeToken = () => {
   api.defaults.headers.common.authorization = null;
 }
 
+// export const changePassword = async (passwords, id) => {
+//   const res = 
+// }
+
 // ====================================
 // ============= Stories ==============
 // ====================================
@@ -68,26 +72,41 @@ export const destroyStory = async (id) => {
 }
 
 // ====================================
+// ============= Favorites ============
+// ====================================
+
+export const addToFavorites = async (item) => {
+  const res = await api.post('/favorites', { favorite: item });
+  return res.data;
+}
+
+export const showUser = async (id) => {
+  const res = await api.get(`/users/${id}`);
+  return res.data;
+}
+
+
+// ====================================
 // ============= Comments =============
 // ====================================
 
 
-export const showStoryComments = async (id) => {
-  const res = await api.get(`/stories/${id}/comments`);
-  return res.data;
-}
+// export const showStoryComments = async (id) => {
+//   const res = await api.get(`/stories/${id}/comments`);
+//   return res.data;
+// }
 
-export const postStoryComment = async (id, item) => {
-  const res = await api.post(`/stories/${id}/comments`, { comment: item });
-  return res.data;
-}
+// export const postStoryComment = async (id, item) => {
+//   const res = await api.post(`/stories/${id}/comments`, { comment: item });
+//   return res.data;
+// }
 
-export const updateStoryComment = async (item, id, commentId) => {
-  const res = await api.put(`stories/${id}/comments/${commentId}`, { comment: item });
-  return res.data;
-}
+// export const updateStoryComment = async (item, id, commentId) => {
+//   const res = await api.put(`stories/${id}/comments/${commentId}`, { comment: item });
+//   return res.data;
+// }
 
-export const destroyComment = async (id, commentId) => {
-  const res = await api.delete(`/stories/${id}/comments/${commentId}`);
-  return res.data;
-}
+// export const destroyComment = async (id, commentId) => {
+//   const res = await api.delete(`/stories/${id}/comments/${commentId}`);
+//   return res.data;
+// }

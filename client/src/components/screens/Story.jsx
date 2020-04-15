@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import Layout from '../shared/Layout';
+import { Button, Link, Container, Typography, Grid, Card } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+
+const useStyles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  card: {
+    // padding: theme.spacing(2),
+    textAlign: 'center',
+    minHeight: '50vh'
+    // color: theme.palette.text.secondary,
+  },
+});
+
+// const classes = useStyles();
 
 class Story extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       story: null,
@@ -13,15 +29,10 @@ class Story extends Component {
     }
   }
 
-  async componentDidMount() {
-    try {
-      const story = await this.props.getOneStory(this.props.match.params.id);
-      this.setState({
-        story
-      })
-    } catch (err) {
-      console.error(err);
-    }
+  componentDidMount = async () => {
+      console.log(this.props)
+     await this.props.getOneStory(this.props.match.params.id);
+   
   }
 
   destroy = () => {
@@ -32,13 +43,13 @@ class Story extends Component {
   }
 
   render() {
-    const { story, deleted } = this.state;
-
-    if (!story) {
+    const { deleted } = this.state;
+    const { classes } = this.props;
+    if (!this.props.story) {
       return (
-        <Layout>
+        <div>
           <h1 className="loading">Loading...</h1>
-        </Layout>
+        </div>
       );
     }
     
@@ -47,32 +58,52 @@ class Story extends Component {
         <Redirect
           to={{
             pathname: '/stories',
-            state: { msg: 'Story successfully deleted!' }
+            state: { msg: 'this.props.oneStory successfully deleted!' }
           }}
         />
       );
     }
 
     return (
-      <Layout>
+      <Grid className={classes.root} container spacing={3}>
         {
-          // this.props.story 
+          // this.props.this.props.oneStory 
           // &&
           // <div>
-          //   <h1>{this.props.story.namecp}</h1>
+          //   <h1>{this.props.this.props.oneStory.namecp}</h1>
           // </div>
-          <div className="story-container">
-            <Link to="stories">
+          <Grid item xs={12} sm={6}>
+            <Link
+              component={RouterLink}
+              to="/stories">
+            {/* <Button
+                size="small"
+                color="primary"
+                component={RouterLink}
+                to="/stories"
+              > */}
               <span className="return">Back to all stories</span>
+                {/* </Button> */}
             </Link>
-            <main className="story">
-              <h1>{story.title}</h1>
-            </main>
-          </div>
+            <Card className={classes.card}>
+              <h1>{this.props.story.title}</h1>
+              <h2>{this.props.story.story}</h2>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => this.props.addToFavorites(this.props.story.id)}
+              >Favorite</Button>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => this.destroy(this.props.story.id)}
+              >Delete</Button>
+            </Card>
+          </Grid>
         }
-      </Layout>
+      </Grid>
     )
   }
 }
 
-export default Story;
+export default withStyles(useStyles, { withTheme: true })(Story);

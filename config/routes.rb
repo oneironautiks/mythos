@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   post '/auth/login', to: 'authentication#login'
   get '/auth/verify', to: 'authentication#verify'
   resources :users
-  
+
+  # get '/favorites', to: 'users#show'
+  post '/favorites', to: 'users#add_favorite'
   resources :stories
   resources :comments
 

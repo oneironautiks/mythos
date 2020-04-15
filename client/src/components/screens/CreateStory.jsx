@@ -8,14 +8,21 @@ class CreateStory extends Component {
     super(props);
 
     this.state = {
-      add: false
+      added: false
     }
   }
 
   render() {
     return (
-    <div>
-      {
+      <>
+      <StoryForm
+          formData={this.props.formData}
+          handleSubmit={this.props.addStory}
+          handleChange={this.props.storyHandleChange}
+          setStoryForm={this.props.setStoryForm}
+          story={this.props.story}
+      />
+      {/* {
         this.state.add ?
           <div>
             <form onSubmit={(e) => {
@@ -40,8 +47,8 @@ class CreateStory extends Component {
               add: true
             })
           }}>Add</button>
-        }
-      </div>
+        } */}
+      </>
     )
   }
 }
